@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Audio Trimmer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="bar">
+  <div class="logo"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9.64 7.64c.23-.5.36-1.05.36-1.64 0-2.21-1.79-4-4-4S2 3.79 2 6s1.79 4 4 4c.59 0 1.14-.13 1.64-.36L10 12l-2.36 2.36C7.14 14.13 6.59 14 6 14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4c0-.59-.13-1.14-.36-1.64L12 14l7 7h3v-1L9.64 7.64zM6 8c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm0 12c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm6-7.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zM19 3l-6 6 2 2 7-7V3z"/></svg></div>
+  <h1>Audio Trimmer</h1>
+  <button class="btn" id="newBtn" hidden>Open another file</button>
+</header>
+<main>
+  <section class="drop" id="drop">
+    <div class="logo"><svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg></div>
+    <h2>Trim an audio file</h2>
+    <p>Drop a file here, or choose one from your device. Nothing is uploaded; all editing happens in your browser.</p>
+    <button class="btn fill" id="pick">Choose audio file</button>
+    <small>MP3, WAV, M4A, AAC, OGG, FLAC, WebM and more, depending on your browser</small>
+  </section>
+
+  <div id="editor" hidden>
+    <div class="card fhead">
+      <div><div class="fname" id="fname"></div><div class="meta" id="meta"></div></div>
+    </div>
+
+    <div class="card" id="wc">
+      <div class="wave" id="wave">
+        <canvas id="cv"></canvas>
+        <div class="sc" id="scL" style="left:0"></div><div class="sc" id="scR"></div>
+        <div class="reg" id="reg" title="Drag to move the selection"></div>
+        <div class="hd" id="hl" role="slider" tabindex="0" aria-label="Trim start"><i></i></div>
+        <div class="hd" id="hr" role="slider" tabindex="0" aria-label="Trim end"><i></i></div>
+        <div class="ph" id="ph"></div>
+      </div>
+      <div class="tr">
+        <button class="fab" id="play" aria-label="Play selection"></button>
+        <button class="btn tonal" id="loop" aria-pressed="false">Loop</button>
+        <div class="time" id="cur">0:00.000</div>
+        <div class="sp"></div>
+        <div class="meta">Space to play or pause</div>
+      </div>
+      <div class="fields">
+        <label class="fl"><span>Start</span><input type="text" id="tS" inputmode="decimal" autocomplete="off" spellcheck="false"></label>
+        <label class="fl"><span>End</span><input type="text" id="tE" inputmode="decimal" autocomplete="off" spellcheck="false"></label>
+        <label class="fl"><span>Selection length</span><input type="text" id="tL" readonly tabindex="-1"></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Export</h3>
+      <div class="exp">
+        <label class="fl name"><span>File name</span><input type="text" id="name" autocomplete="off" spellcheck="false"></label>
+        <label class="fl"><span>Format</span><select id="fmt"></select></label>
+        <label class="fl" id="kbw"><span>MP3 quality</span><select id="kbps"><option value="128">128 kbps</option><option value="192" selected>192 kbps</option><option value="256">256 kbps</option><option value="320">320 kbps</option></select></label>
+      </div>
+      <div class="act">
+        <div class="hint" id="hint"></div>
+        <button class="btn fill" id="exp"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Export</button>
+      </div>
+      <div class="prog" id="prog" hidden><i id="pbar"></i></div>
+    </div>
+  </div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="file" accept="audio/*,video/mp4,video/webm,.mp3,.wav,.m4a,.aac,.ogg,.opus,.flac,.weba" hidden>
+
+<script src="script.js"></script>
+</body>
+</html>

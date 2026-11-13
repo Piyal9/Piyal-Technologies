@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QR Maker: turn a link into a QR code</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>QR Maker</h1>
+  <p>Paste a link and get a QR code you can download. Everything runs in your browser; nothing is uploaded.</p>
+</header>
+
+<main class="app">
+  <section class="controls">
+    <label class="field big">Link or text
+      <input id="text" type="text" inputmode="url" placeholder="https://example.com" autocomplete="off" autofocus>
+    </label>
+
+    <div class="grid">
+      <label class="field"><span>Size: <b id="sv">512</b> px</span>
+        <input type="range" id="size" min="200" max="1200" step="50" value="512"></label>
+      <label class="field"><span>Quiet border: <b id="mv">4</b> modules</span>
+        <input type="range" id="margin" min="0" max="8" value="4"></label>
+      <label class="field">Error correction
+        <select id="ec">
+          <option value="L">Low (smallest code)</option>
+          <option value="M" selected>Medium</option>
+          <option value="Q">Quartile</option>
+          <option value="H">High (most damage-proof)</option>
+        </select>
+      </label>
+      <div class="colors">
+        <label class="field">Code color<input type="color" id="fg" value="#000000"></label>
+        <label class="field">Background<input type="color" id="bg" value="#ffffff"></label>
+      </div>
+    </div>
+    <p class="hint">Scanners read dark codes on light backgrounds best. High error correction helps if you plan to print the code small or add a logo.</p>
+  </section>
+
+  <section class="stage">
+    <div class="card">
+      <canvas id="cv" hidden aria-label="Generated QR code"></canvas>
+      <p id="empty">Type a link to see your QR code.</p>
+    </div>
+    <div class="info" id="info"></div>
+    <p id="msg" role="status"></p>
+    <div class="btns">
+      <button class="primary" id="png" disabled>Download PNG</button>
+      <button id="svg" disabled>Download SVG</button>
+      <button id="copy" disabled>Copy image</button>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

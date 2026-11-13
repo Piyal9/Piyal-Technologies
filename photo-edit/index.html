@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reformat: image converter and resizer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Reformat</h1>
+  <p>Convert JPG, PNG, WebP, BMP and SVG, then resize or change the aspect ratio. Everything runs in your browser; nothing is uploaded.</p>
+</header>
+
+<main class="app">
+  <section class="stage" aria-live="polite">
+    <label class="drop" id="drop">
+      <input type="file" id="file" accept="image/*,.svg,.avif,.bmp">
+      <strong>Drop an image here</strong>
+      <span>Or click to choose a file. You can also paste from the clipboard.</span>
+    </label>
+    <div id="preview" hidden style="display:flex;flex-direction:column;gap:12px;flex:1">
+      <div class="checker"><img id="out" alt="Converted image preview"></div>
+      <div class="stats" id="stats"></div>
+    </div>
+    <p class="note" id="msg" role="alert"></p>
+  </section>
+
+  <aside class="controls">
+    <div class="group">
+      <h2>Convert to</h2>
+      <div class="seg" role="radiogroup" aria-label="Output format">
+        <label><input type="radio" name="fmt" value="png" checked><span>PNG</span></label>
+        <label><input type="radio" name="fmt" value="jpeg"><span>JPG</span></label>
+        <label><input type="radio" name="fmt" value="webp"><span>WebP</span></label>
+        <label><input type="radio" name="fmt" value="bmp"><span>BMP</span></label>
+        <label><input type="radio" name="fmt" value="svg"><span>SVG</span></label>
+      </div>
+      <div id="qGroup" hidden class="field">
+        <span>Quality: <b id="qv">90</b>%</span>
+        <input type="range" id="q" min="10" max="100" value="90">
+      </div>
+      <div id="svgGroup" hidden style="display:grid;gap:10px">
+        <label class="field">SVG method
+          <select id="mode">
+            <option value="embed">Embed (exact picture inside an SVG)</option>
+            <option value="trace">Trace (flat-color vector shapes)</option>
+          </select>
+        </label>
+        <div id="traceOpts" hidden style="display:grid;gap:10px">
+          <label class="field"><span>Detail: <b id="dv">128</b> px on the long side</span>
+            <input type="range" id="detail" min="32" max="256" step="16" value="128"></label>
+          <label class="field"><span>Color levels per channel: <b id="lvv">4</b></span>
+            <input type="range" id="lv" min="2" max="8" value="4"></label>
+          <p class="hint">Tracing is best for logos and flat art. Photos become blocky.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h2>Size</h2>
+      <div class="row">
+        <label class="field">Width (px)<input type="number" id="w" min="1" max="8000" value="0"></label>
+        <label class="field">Height (px)<input type="number" id="h" min="1" max="8000" value="0"></label>
+      </div>
+      <div class="scales" aria-label="Scale">
+        <button type="button" data-s="25">25%</button>
+        <button type="button" data-s="50">50%</button>
+        <button type="button" data-s="100">100%</button>
+        <button type="button" data-s="200">200%</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <h2>Aspect ratio</h2>
+      <label class="field">Ratio
+        <select id="ratio">
+          <option value="original">Keep original</option>
+          <option value="1:1">1:1 square</option>
+          <option value="4:3">4:3</option>
+          <option value="3:2">3:2</option>
+          <option value="16:9">16:9</option>
+          <option value="9:16">9:16 portrait</option>
+          <option value="free">Free (set width and height)</option>
+        </select>
+      </label>
+      <label class="field" id="fitRow" hidden>When the ratio differs from the original
+        <select id="fit">
+          <option value="crop">Crop to fill</option>
+          <option value="pad">Fit inside with padding</option>
+          <option value="stretch">Stretch</option>
+        </select>
+      </label>
+      <div style="display:flex;align-items:center;gap:12px">
+        <input type="color" id="bg" value="#ffffff" aria-label="Background color">
+        <label class="field inline"><input type="checkbox" id="tr"> Transparent background</label>
+      </div>
+      <p class="hint">Background shows behind padding, and replaces transparency in JPG and BMP.</p>
+    </div>
+
+    <div class="group">
+      <a class="btn primary" id="dl" aria-disabled="true" href="#">Download image</a>
+      <button type="button" id="another">Choose another image</button>
+    </div>
+  </aside>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

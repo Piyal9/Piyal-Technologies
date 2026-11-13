@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1>My Tools</h1>
+    <p id="sub"></p>
+  </div>
+  <label class="search"><span class="sr">Search tools</span><input id="q" type="search" placeholder="Search tools" autocomplete="off"></label>
+</header>
+
+<main>
+  <section id="grid" class="grid" aria-live="polite"></section>
+  <p id="none" hidden>No tools match your search.</p>
+
+  <details class="add">
+    <summary>Add a tool</summary>
+    <form id="form">
+      <label>Name<input id="n" required maxlength="40" placeholder="PDF Merger"></label>
+      <label>Folder or file path<input id="p" required placeholder="pdf-merger/index.html"></label>
+      <label class="wide">Short description<input id="d" maxlength="120" placeholder="Combine PDF files into one"></label>
+      <button class="primary" type="submit">Add to dashboard</button>
+      <span id="msg" role="status"></span>
+    </form>
+    <p class="hint">Put each tool in its own folder next to this page, then add it here. Tools you add are saved in this browser.</p>
+  </details>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
