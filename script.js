@@ -5,7 +5,7 @@
   var TOOLS=[
     {name:'QR Maker',desc:'Turn a link or text into a QR code you can download as PNG or SVG.',path:'qr-maker/index.html',icon:'qr',color:'#2B55E6'},
     {name:'Photo Edit',desc:'Convert JPG, PNG, WebP, BMP and SVG, then resize or change the aspect ratio.',path:'photo-edit/index.html',icon:'photo',color:'#D9480F'},
-    {name:'File Converter',desc:'Open Word, PDF, Excel, Markdown and more, edit them, and save as PDF, DOCX or HTML.',path:'file-converter/index.html',icon:'file',color:'#0F766E'},
+    {name:'File Converter',desc:'Convert PPTX, Word, PDF, Excel, Markdown and more to PDF, DOCX, HTML, TXT or Markdown.',path:'file-converter/index.html',icon:'file',color:'#0F766E'},
     {name:'Audio Edit',desc:'Trim an audio file on a waveform and export the clip.',path:'audio-edit/index.html',icon:'audio',color:'#7C3AED'}
   ];
   var ICONS={
