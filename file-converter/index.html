@@ -3,63 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Paperwork: document converter and editor</title>
+<title>Paperwork: file converter</title>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="top">
-  <h1>Paperwork</h1>
-  <div class="group">
-    <label class="btn">Open files<input type="file" id="open" multiple hidden accept=".pdf,.docx,.txt,.md,.markdown,.html,.htm,.csv,.tsv,.xlsx,.xls,.ods,image/*"></label>
-    <label class="btn">Add files<input type="file" id="add" multiple hidden accept=".pdf,.docx,.txt,.md,.markdown,.html,.htm,.csv,.tsv,.xlsx,.xls,.ods,image/*"></label>
-    <button id="clear">Clear</button>
-  </div>
-  <div class="group" role="group" aria-label="Download as">
-    <span class="lbl">Download as</span>
-    <button class="primary" data-x="pdf">PDF</button>
-    <button data-x="docx">DOCX</button>
-    <button data-x="html">HTML</button>
-    <button data-x="txt">TXT</button>
-    <button data-x="md">Markdown</button>
-  </div>
-</header>
-
-<div class="bar" id="bar" role="toolbar" aria-label="Formatting">
-  <button data-c="undo">Undo</button><button data-c="redo">Redo</button>
-  <select id="block" aria-label="Text style">
-    <option value="p">Paragraph</option><option value="h1">Heading 1</option><option value="h2">Heading 2</option><option value="h3">Heading 3</option><option value="blockquote">Quote</option>
-  </select>
-  <button data-c="bold" title="Bold"><b>B</b></button>
-  <button data-c="italic" title="Italic"><i>I</i></button>
-  <button data-c="underline" title="Underline"><u>U</u></button>
-  <button data-c="strikeThrough" title="Strikethrough"><s>S</s></button>
-  <label class="clr" title="Text color">A<input type="color" id="fc" value="#000000"></label>
-  <label class="clr" title="Highlight color">Mark<input type="color" id="hc" value="#ffff00"></label>
-  <button data-c="insertUnorderedList">Bullets</button>
-  <button data-c="insertOrderedList">Numbers</button>
-  <button data-c="justifyLeft">Left</button><button data-c="justifyCenter">Center</button><button data-c="justifyRight">Right</button><button data-c="justifyFull">Justify</button>
-  <button id="link">Link</button>
-  <label class="btn">Image<input type="file" id="img" accept="image/*" hidden></label>
-  <button id="tbl">Table</button><button id="rowp">+ Row</button><button id="colp">+ Column</button>
-  <button data-c="removeFormat">Clear format</button>
-</div>
-
-<div class="opts">
-  <label>Page <select id="size"><option value="a4">A4</option><option value="letter">Letter</option><option value="legal">Legal</option></select></label>
-  <label><select id="orient" aria-label="Orientation"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></label>
-  <label>Margin (mm) <input type="number" id="margin" value="20" min="5" max="50"></label>
-  <label>Font <select id="ff"><option value="Georgia, 'Times New Roman', serif">Serif</option><option value="'Segoe UI', Arial, sans-serif">Sans</option><option value="'Courier New', monospace">Mono</option></select></label>
-  <label>Size (pt) <input type="number" id="fs" value="12" min="8" max="24"></label>
-  <span class="sep"></span>
-  <input id="find" placeholder="Find" aria-label="Find"><input id="repl" placeholder="Replace with" aria-label="Replace with"><button id="rep">Replace all</button>
-</div>
-
-<main class="desk">
-  <article id="paper" class="paper sheet" contenteditable="true" spellcheck="true" data-ph="Open a file, drop one here, or start typing."></article>
+<header class="top"><h1>Paperwork</h1><p>Convert files between formats, right in your browser.</p></header>
+<main class="wrap">
+  <label class="drop" id="drop">
+    <strong>Drop files here or click to choose</strong>
+    <span>PPTX, DOCX, PDF, TXT, Markdown, HTML, CSV, XLSX, images</span>
+    <input type="file" id="pick" multiple hidden accept=".pptx,.pdf,.docx,.txt,.md,.markdown,.html,.htm,.csv,.tsv,.xlsx,.xls,.ods,image/*">
+  </label>
+  <ul id="list" class="list"></ul>
+  <section class="opts">
+    <label>Convert to <select id="fmt"><option value="pdf">PDF</option><option value="docx">DOCX</option><option value="html">HTML</option><option value="txt">TXT</option><option value="md">Markdown</option></select></label>
+    <label>Page <select id="size"><option value="a4">A4</option><option value="letter">Letter</option><option value="legal">Legal</option></select></label>
+    <label>Orientation <select id="orient"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></label>
+    <label>Margin (mm) <input type="number" id="margin" value="15" min="5" max="50"></label>
+  </section>
+  <div class="act"><button class="primary" id="go" disabled>Convert and download</button><button id="clear">Clear</button><span id="msg" role="status"></span></div>
 </main>
-<footer class="foot"><span id="count"></span><span id="msg" role="status"></span></footer>
+<footer class="foot">Made by Piyal Technologies</footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/turndown/7.1.2/turndown.min.js"></script>
